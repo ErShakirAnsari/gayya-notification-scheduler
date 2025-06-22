@@ -53,4 +53,6 @@ jobs:
       - name: Send Notifications
         env:
           GAYYA_IST_TIME: ${{ env.IST_TIME }}  # Pass IST_TIME to the Spring Boot app
+          SPRING_CONFIG_SERVER_USER: ${{ env.SPRING_CONFIG_SERVER_USER }}
+          SPRING_CONFIG_SERVER_PASSWORD: ${{ env.SPRING_CONFIG_SERVER_PASSWORD }}
         run: java -jar target/gayya-notification-scheduler.jar
