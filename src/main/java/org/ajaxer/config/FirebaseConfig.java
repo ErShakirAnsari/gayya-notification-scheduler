@@ -9,8 +9,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.messaging.FirebaseMessaging;
 import lombok.RequiredArgsConstructor;
-import org.ajaxer.service.EnvironmentService;
+import org.ajaxer.common.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
@@ -27,36 +28,19 @@ import java.io.IOException;
 @RequiredArgsConstructor
 public class FirebaseConfig
 {
-	private final EnvironmentService environmentService;
+	@Value("${firebase.credentials.service-account-json}")
+	private String firebaseJson; //base64
 
-	private void checkAllEnvironmentVars()
-	{
-		String firebaseServiceAccountJsonFile = environmentService.getFirebaseServiceAccountJsonFile();
-		if (firebaseServiceAccountJsonFile == null)
-			throw new IllegalStateException("firebaseServiceAccountJsonFile environment variable is not set");
-
-
-		String firebaseDatabaseUrl = environmentService.getFirebaseDatabaseUrl();
-		if (firebaseDatabaseUrl == null)
-			throw new IllegalStateException("firebaseDatabaseUrl environment variable is not set");
-
-
-		String envMode = environmentService.getEnvMode();
-		if (envMode == null)
-			throw new IllegalStateException("envMode [DEV/PROD] environment variable is not set");
-
-	}
+	@Value("${firebase.credentials.database.url}")
+	private String firebaseDatabaseUrl;
 
 	@Bean
 	@Order(Ordered.HIGHEST_PRECEDENCE)
 	public FirebaseApp firebaseApp() throws IOException
 	{
-		checkAllEnvironmentVars();
+		String decode = Utils.decode(firebaseJson);
 
-		String serviceAccountKey = environmentService.getFirebaseServiceAccountJsonFile();
-		String firebaseDatabaseUrl = environmentService.getFirebaseDatabaseUrl();
-
-		ByteArrayInputStream serviceAccountStream = new ByteArrayInputStream(serviceAccountKey.getBytes());
+		ByteArrayInputStream serviceAccountStream = new ByteArrayInputStream(decode.getBytes());
 
 		FirebaseOptions options = FirebaseOptions.builder()
 		                                         .setCredentials(GoogleCredentials.fromStream(serviceAccountStream))
