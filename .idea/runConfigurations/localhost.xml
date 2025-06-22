@@ -1,0 +1,13 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="localhost" type="Application" factoryName="Application">
+    <envs>
+      <env name="GAYYA_IST_TIME" value="" />
+    </envs>
+    <option name="MAIN_CLASS_NAME" value="org.ajaxer.Application" />
+    <module name="gayya-notification-scheduler" />
+    <option name="PROGRAM_PARAMETERS" value="--spring.config.location=classpath:/,file:${user.home}/ajaxer-org/env.properties" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>
