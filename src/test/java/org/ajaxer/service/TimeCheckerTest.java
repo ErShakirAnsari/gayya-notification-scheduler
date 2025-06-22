@@ -1,9 +1,10 @@
 package org.ajaxer.service;
 
+import org.ajaxer.ApplicationCommandLineRunner;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-import static org.ajaxer.service.StarterService.isMinuteMatched;
+import static org.ajaxer.ApplicationCommandLineRunner.isMinuteMatched;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
@@ -73,29 +74,29 @@ public class TimeCheckerTest
 		void testGetQuarter__ValidInputs()
 		{
 			// First Quarter
-			assertEquals(0, StarterService.getQuarter(0));
-			assertEquals(0, StarterService.getQuarter(14));
+			assertEquals(0, ApplicationCommandLineRunner.getQuarter(0));
+			assertEquals(0, ApplicationCommandLineRunner.getQuarter(14));
 
 			// Second Quarter
-			assertEquals(1, StarterService.getQuarter(15));
-			assertEquals(1, StarterService.getQuarter(29));
+			assertEquals(1, ApplicationCommandLineRunner.getQuarter(15));
+			assertEquals(1, ApplicationCommandLineRunner.getQuarter(29));
 
 			// Third Quarter
-			assertEquals(2, StarterService.getQuarter(30));
-			assertEquals(2, StarterService.getQuarter(44));
+			assertEquals(2, ApplicationCommandLineRunner.getQuarter(30));
+			assertEquals(2, ApplicationCommandLineRunner.getQuarter(44));
 
 			// Fourth Quarter
-			assertEquals(3, StarterService.getQuarter(45));
-			assertEquals(3, StarterService.getQuarter(59));
+			assertEquals(3, ApplicationCommandLineRunner.getQuarter(45));
+			assertEquals(3, ApplicationCommandLineRunner.getQuarter(59));
 		}
 
 		@Test
 		void testGetQuarter__InvalidInputs()
 		{
 			// Invalid inputs should default to 0 (First Quarter)
-			assertEquals(0, StarterService.getQuarter(-1));
-			assertEquals(0, StarterService.getQuarter(60));
-			assertEquals(0, StarterService.getQuarter(100));
+			assertEquals(0, ApplicationCommandLineRunner.getQuarter(-1));
+			assertEquals(0, ApplicationCommandLineRunner.getQuarter(60));
+			assertEquals(0, ApplicationCommandLineRunner.getQuarter(100));
 		}
 	}
 }

@@ -1,4 +1,4 @@
-package org.ajaxer.service;
+package org.ajaxer;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -6,6 +6,11 @@ import org.ajaxer.common.Constant;
 import org.ajaxer.dto.FcmTokenDto;
 import org.ajaxer.dto.NotificationMessageDto;
 import org.ajaxer.dto.NotificationStatusDto;
+import org.ajaxer.service.CommonService;
+import org.ajaxer.service.EnvironmentService;
+import org.ajaxer.service.FirebaseNotificationService;
+import org.ajaxer.service.FirestoreService;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
@@ -20,12 +25,18 @@ import java.util.List;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class StarterService
+public class ApplicationCommandLineRunner implements CommandLineRunner
 {
 	private final FirestoreService firestoreService;
 	private final CommonService commonService;
 	private final EnvironmentService environmentService;
 	private final FirebaseNotificationService firebaseNotificationService;
+
+	@Override
+	public void run(String... args) throws Exception
+	{
+		sendDailyReminderNotification();
+	}
 
 	public void sendDailyReminderNotification() throws Exception
 	{
