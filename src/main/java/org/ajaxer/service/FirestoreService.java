@@ -4,7 +4,7 @@ import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.ajaxer.common.Constant;
+import org.ajaxer.common.FirebaseCollectionName;
 import org.ajaxer.dto.FcmTokenDto;
 import org.ajaxer.dto.NotificationStatusDto;
 import org.springframework.stereotype.Service;
@@ -82,8 +82,8 @@ public class FirestoreService
 
 	public void fetchFcmTokens() throws Exception
 	{
-		String collectionName = commonService.getCollectionPrefix() + Constant.FIREBASE_COLLECTION_FCM_TOKENS;
-		log.info("collectionName: {}", collectionName);
+		String collectionName = commonService.getPrefixedCollectionName(FirebaseCollectionName.FCM_TOKENS);
+		log.info("fetchFcmTokens collectionName: {}", collectionName);
 
 		var fcmTokenDtoList = fetchData(collectionName, FcmTokenDto.class);
 		fcmTokenDtoList.forEach(fcmTokenDto -> log.info("fcmTokenDto: {}", fcmTokenDto));
@@ -91,7 +91,7 @@ public class FirestoreService
 
 	public List<NotificationStatusDto> fetchNotificationStatus(boolean enable, int hour, int quater) throws Exception
 	{
-		String collectionName = commonService.getCollectionPrefix() + Constant.FIREBASE_COLLECTION_NOTIFICATION_STATUS;
+		String collectionName = commonService.getPrefixedCollectionName(FirebaseCollectionName.NOTIFICATION_STATUS);
 		log.info("collectionName: {}", collectionName);
 
 		Map<String, Object> filters = new HashMap<>();

@@ -2,12 +2,11 @@ package org.ajaxer;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.ajaxer.common.Constant;
+import org.ajaxer.common.FirebaseCollectionName;
 import org.ajaxer.dto.FcmTokenDto;
 import org.ajaxer.dto.NotificationMessageDto;
 import org.ajaxer.dto.NotificationStatusDto;
 import org.ajaxer.service.CommonService;
-import org.ajaxer.service.EnvironmentService;
 import org.ajaxer.service.FirebaseNotificationService;
 import org.ajaxer.service.FirestoreService;
 import org.springframework.boot.CommandLineRunner;
@@ -29,7 +28,6 @@ public class ApplicationCommandLineRunner implements CommandLineRunner
 {
 	private final FirestoreService firestoreService;
 	private final CommonService commonService;
-	private final EnvironmentService environmentService;
 	private final FirebaseNotificationService firebaseNotificationService;
 
 	@Override
@@ -40,7 +38,7 @@ public class ApplicationCommandLineRunner implements CommandLineRunner
 
 	public void sendDailyReminderNotification() throws Exception
 	{
-		LocalDateTime localDateTime = environmentService.getIstTimeDateTime();
+		LocalDateTime localDateTime = commonService.getIstTimeDateTime();
 		log.debug("localDateTime: {}", localDateTime);
 
 		int quarter = getQuarter(localDateTime.getMinute());
@@ -58,13 +56,13 @@ public class ApplicationCommandLineRunner implements CommandLineRunner
 			return;
 		}
 
-		String dailyReminderChannelId = environmentService.getDailyReminderChannelId();
+		String dailyReminderChannelId = commonService.getDailyReminderChannelId();
 		log.debug("dailyReminderChannelId: {}", dailyReminderChannelId);
 
-		String messageCollection = commonService.getPrefixedCollectionName(Constant.FIREBASE_COLLECTION_NOTIFICATION_MESSAGES);
+		String messageCollection = commonService.getPrefixedCollectionName(FirebaseCollectionName.NOTIFICATION_MESSAGES);
 		log.debug("messageCollection: {}", messageCollection);
 
-		String fcmTokenCollection = commonService.getPrefixedCollectionName(Constant.FIREBASE_COLLECTION_FCM_TOKENS);
+		String fcmTokenCollection = commonService.getPrefixedCollectionName(FirebaseCollectionName.FCM_TOKENS);
 		log.debug("fcmTokenCollection: {}", fcmTokenCollection);
 
 		var messageDto = firestoreService.fetchData(messageCollection, dailyReminderChannelId, NotificationMessageDto.class);
