@@ -1,9 +1,8 @@
 package org.ajaxer;
 
-import org.ajaxer.service.StarterService;
-import org.springframework.boot.SpringApplication;
+import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.boot.builder.SpringApplicationBuilder;
 
 /**
  * @author Shakir Ansari
@@ -14,8 +13,8 @@ public class Application
 {
 	public static void main(String[] args) throws Exception
 	{
-		ConfigurableApplicationContext context = SpringApplication.run(Application.class, args);
-
-		context.getBean(StarterService.class).sendDailyReminderNotification();
+		new SpringApplicationBuilder(Application.class)
+				.web(WebApplicationType.NONE) // Ensure no web server starts
+				.run(args);
 	}
 }
