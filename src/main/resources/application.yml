@@ -1,4 +1,4 @@
-logging:
-  level:
-    root: INFO
-    org.ajaxer: DEBUG
+# REQUIRED FOR SPRING BOOT 2.4+ and Spring Cloud 2020.0.x+
+spring:
+  config:
+    import: 'configserver:'
