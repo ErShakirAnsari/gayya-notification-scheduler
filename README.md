@@ -1,6 +1,8 @@
 
-# GAYYA 
+# GAYYA ![Cron job status](https://api.cron-job.org/jobs/5788862/72f53e9e89299a39/status-7.svg)
 [https://cron-job.org/en/](https://cron-job.org/en/)
+
+
 
 ## GitHub permissions for cron.org token:
 `Read and Write access to actions`
