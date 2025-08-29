@@ -1,4 +1,16 @@
-# REQUIRED FOR SPRING BOOT 2.4+ and Spring Cloud 2020.0.x+
 spring:
-  config:
-    import: 'configserver:'
+  application:
+    name: gayya-notification-scheduler
+
+logging:
+  level:
+    root: INFO
+    org.ajaxer: DEBUG
+
+---
+firebase.collection-prefix: "test_"
+
+---
+android:
+  notification:
+    channel-id: "DailyReminderChannel"
