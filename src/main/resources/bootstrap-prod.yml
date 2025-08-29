@@ -1,8 +1,0 @@
-spring:
-  cloud:
-    config:
-      uri: https://backend.ajaxer.org/configs
-      profile: prod
-      label: master
-      username: ${SPRING_CONFIG_SERVER_USER}
-      password: ${SPRING_CONFIG_SERVER_PASSWORD}
